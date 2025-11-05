@@ -1,16 +1,27 @@
 <template>
   <div class="course-list">
     <div class="course-card">
-      <h3>ชื่อคอร์ส: ...</h3>
-      <p>ราคา: ... บาท</p>
-      <button>เพิ่มในรายการโปรด</button>
+      <h3>ชื่อคอร์ส: {{ title }}</h3>
+      <p>ราคา: {{ price }} บาท</p>
+      <button :disabled="!favoriteStore.username" @click="addToFavorites">
+        เพิ่มในรายการโปรด
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
 // TODO: import { useFavoriteStore } แล้วเขียนฟังก์ชันเพิ่มคอร์สลง store
-// TODO: defineProps({ course: Object })
+import { useFavoriteStore } from "../stores/favorite";
+const course = defineProps({
+  title: String,
+  price: Number,
+});
+const favoriteStore = useFavoriteStore();
+const addToFavorites = () => {
+  favoriteStore.addFavorite(course);
+};
+console.log(favoriteStore.username);
 </script>
 
 <style scoped>
@@ -53,7 +64,13 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button:hover:not(:disabled) {
   background-color: #2c9c6d;
 }
 </style>

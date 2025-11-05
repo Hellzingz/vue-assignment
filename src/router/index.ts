@@ -4,6 +4,8 @@ import Summary from "../views/Summary.vue";
 
 const routes = [
   { path: "/", component: Courses },
+  { path: "/summary", component: Summary },
+  
   // TODO: สร้าง Route สำหรับหน้า Summary
 ];
 
